@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "PARKS"
+version = "0.1.0"
+description = "Predictive Analysis for Real-time Knowledge of Spaces"
+authors = ["Alex Bailey <alexbaileyconsulting@gmail.com>"]
+packages = [{include = "parks"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+python-dotenv = "^1.0.1"
+#sqlmodel = "^0.0.6"
+#fastapi = {"extras" = ["all"], version = "^0.79.0"}
+yoyo-migrations = "^8.2.0"
+uvicorn = "^0.27.1"
+psycopg2-binary = "^2.9.9"
+poetry-dynamic-versioning = "^1.2.0"
+pytemplate-reverse = "^0.0.3"
+typer = "^0.9.0"
+coloredlogs = "^15.0.1"
+psycopg2 = "^2.9.9"
+asyncpg = "^0.29.0"
+#sqlalchemy = "^2.0.27"
+#SQLAlchemy = "1.4.35"
+fastapi = "^0.110.0"
+sqlmodel = "^0.0.16"
+python-multipart = "^0.0.9"
+
+[tool.poetry.dev-dependencies]
+
+[tool.poetry-dynamic-versioning]
+enable = true
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
