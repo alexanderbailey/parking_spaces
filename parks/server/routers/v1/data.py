@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, UploadFile, HTTPException
 from sqlmodel import Session
 
 from parks.schemas import (
@@ -12,7 +12,6 @@ router = APIRouter()
 
 @router.post(
     "/upload",
-    response_model=str,
     status_code=201
 )
 def data_upload(
@@ -29,7 +28,7 @@ def data_upload(
             response=json_data
         )
     except Exception as e:
-        return f'Bad upload file. Error: {e}'
+        raise HTTPException(422, f'Bad upload file. Error: {e}')
 
     session.add(server_response)
     session.commit()
