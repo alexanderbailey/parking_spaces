@@ -19,11 +19,16 @@ class CarPark(SQLModel, table=True):
     low: int  # Number of spaces considered low
 
 
-class Spaces(SQLModel, table=True):
+class SpacesRead(SQLModel):
+    spaces: int
+    time: datetime
+
+
+class Spaces(SpacesRead, table=True):
     __tablename__ = "spaces"
     id: Optional[UUID] = Field(default=None, primary_key=True)
     car_park_id: UUID = Field(foreign_key="carpark.id")
     open: bool
-    spaces: int
     unusable_spaces: int
-    time: datetime
+
+
