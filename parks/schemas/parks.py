@@ -27,7 +27,7 @@ class SpacesRead(SQLModel):
 class Spaces(SpacesRead, table=True):
     __tablename__ = "spaces"
     id: Optional[UUID] = Field(default=None, primary_key=True)
-    car_park_id: UUID = Field(foreign_key="carpark.id")
+    carpark_id: UUID = Field(foreign_key="carpark.id")
     open: bool
     unusable_spaces: int
 
