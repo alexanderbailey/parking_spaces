@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from sqlmodel import Session, select
+from sqlmodel import Session, select, extract
 
 from parks.schemas import (
     SpacesRead,
@@ -13,10 +13,10 @@ router = APIRouter()
 
 
 @router.get(
-    "/get",
+    "/get-in-range",
     response_model=list[SpacesRead]
 )
-def get_spaces(
+def get_spaces_in_range(
         *,
         carpark_code: str,
         range_start: datetime,
@@ -24,9 +24,32 @@ def get_spaces(
         session: Session = Depends(session)
 ):
     return session.exec(
-        select(Spaces)
+        select(Spaces.spaces, Spaces.time)
         .join(CarPark)
         .filter(CarPark.code == carpark_code)
+        .filter(Spaces.time >= range_start)
+        .filter(Spaces.time <= range_end)
+        .order_by(Spaces.time.asc())
+    ).all()
+
+
+@router.get(
+    "/get-day-in-range",
+    response_model=list[SpacesRead]
+)
+def get_spaces_from_day_in_range(
+        *,
+        carpark_code: str,
+        day: int,
+        range_start: datetime,
+        range_end: datetime,
+        session: Session = Depends(session)
+):
+    return session.exec(
+        select(Spaces.spaces, Spaces.time)
+        .join(CarPark)
+        .filter(CarPark.code == carpark_code)
+        .filter(extract('dow', Spaces.time) == day)
         .filter(Spaces.time >= range_start)
         .filter(Spaces.time <= range_end)
         .order_by(Spaces.time.asc())
