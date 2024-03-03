@@ -55,7 +55,7 @@ templates = Jinja2Templates(directory=template_dir)
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
-@app.get('/')
+@app.get('/', include_in_schema=False)
 def index(request: Request):
     return templates.TemplateResponse("index.html", {
         "version": __version__,
