@@ -29,4 +29,5 @@ def get_spaces(
         .filter(CarPark.code == carpark_code)
         .filter(Spaces.time >= range_start)
         .filter(Spaces.time <= range_end)
+        .order_by(Spaces.time.asc())
     ).all()
