@@ -1,11 +1,156 @@
+<!DOCTYPE html>
 <html>
     <head>
-        <title>{{ title }}</title>
+        <title>PARKS - Predictive Analysis for Real-time Knowledge of Spaces</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="An model for predicting available car park spaces throughout the day"/>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
         <link rel="icon" type="image/x-icon" href="/static/images/favicon.ico">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/1.30.1/date_fns.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+        <link rel="stylesheet" href="/static/css/styles.css">
     </head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-47T1X0ZFS4"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-47T1X0ZFS4');
+    </script>
     <body>
-        <h1>{{ title }}</h1>
-        <i>Version: {{ version }}</i>
-        <img src="/static/images/icon.png">
+        <div class="title">
+            PARKS
+            <img src="/static/images/icon.png" />
+        </div>
+        <div class="subtitle">
+            <span>P</span>redictive
+            <span>A</span>nalysis for
+            <span>R</span>eal-time
+            <span>K</span>nowledge of
+            <span>S</span>paces
+        </div>
+        <div class="dropdowns">
+            <div class="carpark-select">
+                <select id="carpark" onchange="update_chart()">
+                    <option value="MINDENPL">Minden Place</option>
+                    <option value="GREENST">Green Street</option>
+                    <option value="PIERRD">Pier Road</option>
+                    <option value="SANDST">Sand Street</option>
+                    <option value="LESJARDINS">Les Jardins</option>
+                    <option value="PATRIOTICST">Patriotic Street</option>
+                </select>
+            </div>
+            <div class="day-select">
+                <select id="day" onchange="update_chart()">
+                    <option value="1">Monday</option>
+                    <option value="2">Tuesday</option>
+                    <option value="3">Wednesday</option>
+                    <option value="4">Thursday</option>
+                    <option value="5">Friday</option>
+                    <option value="6">Saturday</option>
+                    <option value="0">Sunday</option>
+                </select>
+            </div>
+        </div>
+        <div id="container">
+            <div id="">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
+        <script>
+
+            const carparks = {
+                'MINDENPL': 'Minden Place',
+                'GREENST': 'Green Street',
+                'PIERRD': 'Pier Road',
+                'SANDST': 'Sand Street',
+                'LESJARDINS': 'Les Jardins',
+                'PATRIOTICST': 'Patriotic Street'
+            };
+
+            const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+            const color = Chart.helpers.color;
+
+            var options = {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Available Spaces',
+                        borderWidth: 1,
+                        tension: 0.4,
+                        borderColor: color('#ffa03a').alpha(0.5).rgbString(),
+                        backgroundColor: color('#ffa03a').alpha(0.5).rgbString(),
+                        fill: true,
+                        radius: 0,
+                        hitRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        elements: {
+                            point: {
+                                radius: 0,
+                                hitRadius: 10,
+                            },
+                            display: false
+                        },
+                        x: {
+                            type: 'time',
+                            time: {
+                                unit: 'hour',
+                                tooltipFormat: 'HH:mm',
+                            },
+                        },
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true
+                        },
+                    }
+                }
+            };
+
+            const ctx = document.getElementById('myChart');
+            let myChart;
+
+            function update_chart(create = false) {
+                console.log('Updating chart');
+                let carpark_code = document.getElementById('carpark').value;
+                let day = document.getElementById('day').value;
+                let start_date = '2024-02-27';
+                let end_date = '2024-03-05';
+                fetch(`/v1/spaces/get-day-in-range?carpark_code=${carpark_code}&day=${day}&start_date=${start_date}&end_date=${end_date}`)
+                    .then(response => response.json())
+                    .then(response => {
+                        let data = response.map(obj => {
+                            return {
+                                x: Date.parse(obj.time),
+                                y: obj.spaces
+                            }
+                        });
+                        options.data.datasets[0].data = data;
+                        options.options.plugins.title.text = carparks[document.getElementById('carpark').value] + ' on a ' + days[document.getElementById('day').value]
+                        if (create === false) {
+                            myChart.options = options.options;
+                            myChart.data = options.data;
+                            myChart.update();
+                        }
+                        console.log('Creating chart');
+                        myChart = new Chart(ctx, options);
+                    });
+            }
+
+            document.getElementById('day').value = new Date().getDay();
+            update_chart(true);
+            
+        </script>
     </body>
 </html>

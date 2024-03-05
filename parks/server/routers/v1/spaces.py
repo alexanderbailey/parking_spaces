@@ -28,7 +28,7 @@ def get_spaces_in_range(
         .join(CarPark)
         .filter(CarPark.code == carpark_code)
         .filter(Spaces.time >= range_start)
-        .filter(Spaces.time <= range_end)
+        .filter(Spaces.time < range_end)
         .order_by(Spaces.time.asc())
     ).all()
 
@@ -41,16 +41,16 @@ def get_spaces_from_day_in_range(
         *,
         carpark_code: str,
         day: int,
-        range_start: datetime,
-        range_end: datetime,
+        start_date: datetime,
+        end_date: datetime,
         session: Session = Depends(session)
 ):
     return session.exec(
-        select(Spaces.spaces, Spaces.time)
+        select(Spaces.time, Spaces.spaces)
         .join(CarPark)
         .filter(CarPark.code == carpark_code)
         .filter(extract('dow', Spaces.time) == day)
-        .filter(Spaces.time >= range_start)
-        .filter(Spaces.time <= range_end)
+        .filter(Spaces.time >= start_date)
+        .filter(Spaces.time <= end_date)
         .order_by(Spaces.time.asc())
     ).all()

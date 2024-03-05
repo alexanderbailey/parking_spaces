@@ -1,0 +1,64 @@
+html {
+    height: 100%;
+    font-family: "Anta", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    background-color: #141d2c;
+    /*background: linear-gradient(135deg, rgba(65, 131, 155, 1) 0%, rgba(51, 98, 123, 1) 100%);*/
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+* {
+    box-sizing: border-box;
+}
+#container {
+    display: table;
+    background: #192232;
+    margin: 24px auto;
+    width: 90%;
+    border-radius: 10px;
+    border: 1px solid #344054
+}
+
+.title {
+    font-size: 80px;
+    color: #eeeeee;
+    text-align: center;;
+    vertical-align: middle;
+    width: 100%;
+}
+
+.title img {
+    padding-top: 24px;
+    height: 80px;
+}
+
+.subtitle {
+    color: #999999;
+    text-align: center;
+    width: 100%;
+}
+
+.subtitle span {
+    color: #eeeeee;
+}
+
+.dropdowns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 24px;
+}
+
+.day-select {
+    padding-left: 10px;
+}
+
+.carpark-select {
+    padding-right: 10px;
+}

@@ -31,7 +31,8 @@ app.middleware("http")(catch_exceptions_middleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:8080"
+        "http://localhost:8000",
+        "https://parks.je"
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -63,6 +64,12 @@ def index(request: Request):
         "request": request
     })
 
+
+@app.get('/chart', include_in_schema=False)
+def index(request: Request):
+    return templates.TemplateResponse("chart.html", {
+        "request": request
+    })
 
 # ROUTERS
 app.include_router(v1.router, prefix="/v1")
