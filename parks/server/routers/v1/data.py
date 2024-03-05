@@ -12,7 +12,8 @@ router = APIRouter()
 
 @router.post(
     "/upload",
-    status_code=201
+    status_code=201,
+    include_in_schema=False
 )
 def data_upload(
         *,

@@ -126,9 +126,7 @@
             function update_chart(create = false) {
                 let carpark_code = document.getElementById('carpark').value;
                 let day = document.getElementById('day').value;
-                let start_date = '2024-02-27';
-                let end_date = '2024-03-05';
-                fetch(`/v1/spaces/get-day-in-range?carpark_code=${carpark_code}&day=${day}&start_date=${start_date}&end_date=${end_date}`)
+                fetch(`/v1/spaces/get-model?carpark_code=${carpark_code}&day=${day}`)
                     .then(response => response.json())
                     .then(response => {
                         let data = response.map(obj => {

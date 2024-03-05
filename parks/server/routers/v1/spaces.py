@@ -14,7 +14,8 @@ router = APIRouter()
 
 @router.get(
     "/get-in-range",
-    response_model=list[SpacesRead]
+    response_model=list[SpacesRead],
+    include_in_schema=False
 )
 def get_spaces_in_range(
         *,
@@ -35,7 +36,8 @@ def get_spaces_in_range(
 
 @router.get(
     "/get-day-in-range",
-    response_model=list[SpacesRead]
+    response_model=list[SpacesRead],
+    include_in_schema=False
 )
 def get_spaces_from_day_in_range(
         *,
@@ -51,6 +53,27 @@ def get_spaces_from_day_in_range(
         .filter(CarPark.code == carpark_code)
         .filter(extract('dow', Spaces.time) == day)
         .filter(Spaces.time >= start_date)
-        .filter(Spaces.time <= end_date)
+        .filter(Spaces.time < end_date)
+        .order_by(Spaces.time.asc())
+    ).all()
+
+
+@router.get(
+    "/get-model",
+    response_model=list[SpacesRead]
+)
+def get_model(
+        *,
+        carpark_code: str,
+        day: int,
+        session: Session = Depends(session)
+):
+    return session.exec(
+        select(Spaces.time, Spaces.spaces)
+        .join(CarPark)
+        .filter(CarPark.code == carpark_code)
+        .filter(extract('dow', Spaces.time) == day)
+        .filter(Spaces.time >= '2024-02-27 02:00:00')
+        .filter(Spaces.time < '2024-03-05 02:00:00')
         .order_by(Spaces.time.asc())
     ).all()

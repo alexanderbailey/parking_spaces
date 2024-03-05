@@ -65,12 +65,6 @@ def index(request: Request):
     })
 
 
-@app.get('/chart', include_in_schema=False)
-def index(request: Request):
-    return templates.TemplateResponse("chart.html", {
-        "request": request
-    })
-
 # ROUTERS
 app.include_router(v1.router, prefix="/v1")
 

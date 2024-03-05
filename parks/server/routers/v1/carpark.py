@@ -11,7 +11,8 @@ router = APIRouter()
 
 @router.get(
     "/get-all",
-    response_model=list[CarPark]
+    response_model=list[CarPark],
+    include_in_schema=False
 )
 def get_all_carparks(
         *,
