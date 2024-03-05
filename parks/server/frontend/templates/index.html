@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
+    <!-- TODO: Add weather data to model -->
+    <!-- Comments or suggestions welcome to: alexbaileyconsulting at gmail -->
     <head>
         <title>PARKS - Predictive Analysis for Real-time Knowledge of Spaces</title>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <meta name="description" content="An model for predicting available car park spaces throughout the day"/>
+        <meta name="description" content="A model for predicting available car parking spaces in St. Helier, Jersey"/>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Anta&display=swap" rel="stylesheet">
@@ -122,7 +124,6 @@
             let myChart;
 
             function update_chart(create = false) {
-                console.log('Updating chart');
                 let carpark_code = document.getElementById('carpark').value;
                 let day = document.getElementById('day').value;
                 let start_date = '2024-02-27';
@@ -138,13 +139,13 @@
                         });
                         options.data.datasets[0].data = data;
                         options.options.plugins.title.text = carparks[document.getElementById('carpark').value] + ' on a ' + days[document.getElementById('day').value]
-                        if (create === false) {
+                        if (create) {
+                            myChart = new Chart(ctx, options);
+                        } else {
                             myChart.options = options.options;
                             myChart.data = options.data;
                             myChart.update();
                         }
-                        console.log('Creating chart');
-                        myChart = new Chart(ctx, options);
                     });
             }
 
