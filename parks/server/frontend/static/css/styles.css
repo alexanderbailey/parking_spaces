@@ -62,3 +62,7 @@ body {
 .carpark-select {
     padding-right: 10px;
 }
+
+canvas {
+    width: 100% !important;
+}
