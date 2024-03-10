@@ -74,6 +74,6 @@ def get_model(
         .filter(CarPark.code == carpark_code)
         .filter(extract('dow', Spaces.time) == day)
         .filter(Spaces.time >= '2024-02-28')
-        .filter(Spaces.time < '2024-03-07')
+        .filter(Spaces.time < '2024-03-06')
         .order_by(Spaces.time.asc())
     ).all()
