@@ -30,7 +30,7 @@ def setup_logging():
     # sqlalchemy logger requires special treatment...
     # if config.log_sql_alchemy:
     logger.info("Enabling sqlalchemy SQL logging")
-    logging.getLogger("sqlalchemy.engine.Engine").setLevel("INFO")
+    # logging.getLogger("sqlalchemy.engine.Engine").setLevel("INFO")
 
 
 def get_logger() -> logging.Logger:
