@@ -12,7 +12,7 @@ CREATE TABLE weather_location
     lon                             REAL                                                    NOT NULL,
     timezone                        TEXT                                                    NOT NULL,
     timezone_offset                 INTEGER                                                 NOT NULL
-)
+);
 
 -- Create weather_forecast table
 CREATE TABLE weather_forecast
