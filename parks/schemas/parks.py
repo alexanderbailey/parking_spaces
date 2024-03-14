@@ -10,6 +10,16 @@ class ServerResponse(SQLModel, table=True):
     response: dict = Field(sa_column=Column(JSON))
 
 
+class WeatherLocation(SQLModel, table=True):
+    __tablename__ = "weather_location"
+    id: Optional[UUID] = Field(default=None, primary_key=True)
+    name: str
+    lat: float
+    lon: float
+    timezone: str
+    timezone_offset: int
+
+
 class Weather(SQLModel, table=True):
     __tablename__ = "weather"
     weather_location_id: UUID = Field(primary_key=True, foreign_key="weather_location.id")
