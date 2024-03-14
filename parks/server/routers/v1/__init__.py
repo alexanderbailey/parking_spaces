@@ -6,6 +6,10 @@ from .data import router as data_router
 
 router.include_router(data_router, prefix="/data", tags=["data"])
 
+from .weather import router as weather_router
+
+router.include_router(weather_router, prefix="/weather", tags=["weather"])
+
 from .carpark import router as carpark_router
 
 router.include_router(carpark_router, prefix="/carpark", tags=["carpark"])
