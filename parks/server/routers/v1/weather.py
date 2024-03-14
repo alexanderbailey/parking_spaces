@@ -26,7 +26,7 @@ def weather_upload(
         json_data = json.load(server_response.file)
         # TODO: Replace hard-coded UUID with a lookup from the database
         st_helier_uuid = '1b6cf4b3-a9cf-433c-a3f1-18c1c7bc8d1f'
-        time = datetime.fromtimestamp(json_data['data'][0]['dt'])
+        time = datetime.fromtimestamp(json_data['dt'])
         weather = Weather(
             weather_location_id=st_helier_uuid,
             time=time,
