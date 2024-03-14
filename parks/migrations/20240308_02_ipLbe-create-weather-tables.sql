@@ -1,4 +1,4 @@
--- create-historic-weather-forecast-table
+-- create-weather-tables
 -- depends: 20240308_01_kKWih-create-trigger-to-extract-carpark-spaces-from-server-response
 
 -- ######################### CREATE TABLES #########################
@@ -14,8 +14,8 @@ CREATE TABLE weather_location
     timezone_offset                 INTEGER                                                 NOT NULL
 );
 
--- Create weather_forecast table
-CREATE TABLE weather_forecast
+-- Create weather table
+CREATE TABLE weather
 (
     weather_location_id             UUID                                                    NOT NULL,
     time                            TIMESTAMP WITH TIME ZONE                                NOT NULL,
@@ -29,13 +29,13 @@ CREATE TABLE weather_forecast
 -- Make id the primary key
 ALTER TABLE weather_location ADD PRIMARY KEY (id);
 
--- Keys and indexes for weather_forecast
+-- Keys and indexes for weather
 
 -- Make weather_location_id and time the primary key
-ALTER TABLE weather_forecast ADD PRIMARY KEY (weather_location_id, time);
+ALTER TABLE weather ADD PRIMARY KEY (weather_location_id, time);
 
 -- Add foreign key to the weather_location table
-ALTER TABLE weather_forecast ADD FOREIGN KEY (weather_location_id) REFERENCES weather_location(id) ON DELETE SET NULL;
+ALTER TABLE weather ADD FOREIGN KEY (weather_location_id) REFERENCES weather_location(id) ON DELETE SET NULL;
 
 -- Add index to time column
-CREATE INDEX ON weather_forecast (time);
+CREATE INDEX ON weather (time);
