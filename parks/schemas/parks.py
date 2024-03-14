@@ -10,6 +10,13 @@ class ServerResponse(SQLModel, table=True):
     response: dict = Field(sa_column=Column(JSON))
 
 
+class WeatherForecast(SQLModel, table=True):
+    __tablename__ = "weather_forecast"
+    weather_location_id: UUID = Field(foreign_key="weather_location.id")
+    time: datetime
+    data: dict = Field(sa_column=Column(JSON))
+
+
 class CarPark(SQLModel, table=True):
     __tablename__ = "carpark"
     id: Optional[UUID] = Field(default=None, primary_key=True)
