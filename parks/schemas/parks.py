@@ -10,8 +10,8 @@ class ServerResponse(SQLModel, table=True):
     response: dict = Field(sa_column=Column(JSON))
 
 
-class WeatherForecast(SQLModel, table=True):
-    __tablename__ = "weather_forecast"
+class Weather(SQLModel, table=True):
+    __tablename__ = "weather"
     weather_location_id: UUID = Field(foreign_key="weather_location.id")
     time: datetime
     data: dict = Field(sa_column=Column(JSON))

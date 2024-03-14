@@ -3,7 +3,7 @@ from sqlmodel import Session
 from datetime import datetime
 
 from parks.schemas import (
-    WeatherForecast,
+    Weather,
 )
 from parks.database import session
 
@@ -22,9 +22,10 @@ def weather_upload(
 ):
 
     try:
+        # TODO: Replace hard-coded UUID with a lookup from the database
         st_helier_uuid = '1b6cf4b3-a9cf-433c-a3f1-18c1c7bc8d1f'
         time = datetime.fromtimestamp(current_weather['data'][0]['dt'])
-        weather_forecast = WeatherForecast(
+        weather_forecast = Weather(
             weather_location_id=st_helier_uuid,
             time=time,
             data=current_weather
