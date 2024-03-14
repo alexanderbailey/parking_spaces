@@ -6,7 +6,7 @@ weather_filename="${timestamp}_weather.json"
 echo ${timestamp}
 curl --user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.1" "https://www.gov.je/_layouts/15/C5.Gov.Je.CarParks/proxy.aspx?_=${timestamp}" > ${filename}
 source /opt/parking_spaces/.venv/bin/activate
-python /opt/parking_spaces/models/parks-model/get_current_weather.py > ${weather_filename}
+python get_current_weather.py > ${weather_filename}
 python file_uploader.py -f ${filename}
 if [ $? -eq 0 ]; then
         echo 'Upload succeeded'
