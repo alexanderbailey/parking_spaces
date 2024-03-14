@@ -12,8 +12,8 @@ class ServerResponse(SQLModel, table=True):
 
 class Weather(SQLModel, table=True):
     __tablename__ = "weather"
-    weather_location_id: UUID = Field(foreign_key="weather_location.id")
-    time: datetime
+    weather_location_id: UUID = Field(primary_key=True, foreign_key="weather_location.id")
+    time: datetime = Field(primary_key=True)
     data: dict = Field(sa_column=Column(JSON))
 
 
