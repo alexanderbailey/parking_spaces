@@ -1,7 +1,7 @@
-from datetime import datetime
 from dotenv import find_dotenv, load_dotenv
 from os import getenv
 import requests
+import json
 
 load_dotenv(find_dotenv())
 API_KEY = getenv("OPEN_WEATHER_API_KEY")
@@ -45,5 +45,5 @@ class OpenWeather:
 if __name__ == '__main__':
     ow = OpenWeather(lat=LAT, lon=LON, api_key=API_KEY)
     current_weather = ow.current_weather()
-    print(current_weather)
+    print(json.dumps(current_weather))
 

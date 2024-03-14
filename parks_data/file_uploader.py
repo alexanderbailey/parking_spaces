@@ -37,7 +37,7 @@ class FileUploader:
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--weather", "-w", type=bool, default=False, required=False, help="Upload weather data")
+    parser.add_argument("--weather", "-w", action='store_true', required=False, help="Upload weather data")
     parser.add_argument("--file", "-f", type=str, required=True, help="The file to be uploaded")
     args = parser.parse_args()
 
