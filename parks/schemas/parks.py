@@ -20,12 +20,20 @@ class WeatherLocation(SQLModel, table=True):
     timezone_offset: int
 
 
+class WeatherType(SQLModel, table=True):
+    __tablename__ = "weather_type"
+    id: Optional[UUID] = Field(default=None, primary_key=True)
+    name: str
+    description: str
+
+
 class Weather(SQLModel, table=True):
     __tablename__ = "weather"
-    weather_location_id: UUID = Field(primary_key=True, foreign_key="weather_location.id")
-    time: datetime = Field(primary_key=True)
+    id: Optional[UUID] = Field(default=None, primary_key=True)
+    location_id: UUID = Field(foreign_key="weather_location.id")
+    time: datetime
     data: dict = Field(sa_column=Column(JSON))
-    historic: bool = False
+    type_id: UUID = Field(foreign_key="weather_type.id")
 
 
 class CarPark(SQLModel, table=True):
