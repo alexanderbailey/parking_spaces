@@ -17,7 +17,7 @@ CREATE TABLE weather_location
 -- Create weather table
 CREATE TABLE weather
 (
-    weather_location_id             UUID                                                    NOT NULL,
+    location_id                     UUID                                                    NOT NULL,
     time                            TIMESTAMP WITH TIME ZONE                                NOT NULL,
     data                            JSONB                                                   NOT NULL
 );
@@ -32,10 +32,10 @@ ALTER TABLE weather_location ADD PRIMARY KEY (id);
 -- Keys and indexes for weather
 
 -- Make weather_location_id and time the primary key
-ALTER TABLE weather ADD PRIMARY KEY (weather_location_id, time);
+ALTER TABLE weather ADD PRIMARY KEY (location_id, time);
 
 -- Add foreign key to the weather_location table
-ALTER TABLE weather ADD FOREIGN KEY (weather_location_id) REFERENCES weather_location(id) ON DELETE SET NULL;
+ALTER TABLE weather ADD FOREIGN KEY (location_id) REFERENCES weather_location(id) ON DELETE SET NULL;
 
 -- Add index to time column
 CREATE INDEX ON weather (time);
