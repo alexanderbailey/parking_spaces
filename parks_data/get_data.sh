@@ -16,8 +16,8 @@ else
 fi
 python file_uploader.py -w -f ${weather_filename}
 if [ $? -eq 0 ]; then
-        echo 'Upload weahter succeeded'
-        rm ${filename}
+        echo 'Upload weather succeeded'
 else
         echo 'Upload weather failed'
 fi
+rm ${weather_filename}

@@ -39,3 +39,31 @@ def weather_upload(
     session.commit()
 
     return f'Successfully uploaded weather'
+
+
+@router.post(
+    "/historic/upload",
+    status_code=201,
+    include_in_schema=False
+)
+def historic_weather_upload(
+        *,
+        data: dict,
+        session: Session = Depends(session)
+):
+    try:
+        st_helier_uuid = '1b6cf4b3-a9cf-433c-a3f1-18c1c7bc8d1f'
+        time = datetime.fromtimestamp(data['data'][0]['dt'])
+        historic_weather = Weather(
+            weather_location_id=st_helier_uuid,
+            time=time,
+            data=data,
+            historic=True
+        )
+    except Exception as e:
+        raise HTTPException(422, f'Bad upload historic weather. Error: {e}')
+
+    session.add(historic_weather)
+    session.commit()
+
+    return f'Successfully uploaded historic weather at {time}'
