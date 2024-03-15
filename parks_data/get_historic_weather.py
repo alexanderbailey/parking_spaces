@@ -45,9 +45,13 @@ class OpenWeather:
 
 if __name__ == '__main__':
     ow = OpenWeather(lat=LAT, lon=LON, api_key=API_KEY)
-    for hour in range(12):
-        for min in range(60):
-            historic_weather = ow.weather_for_timestamp(datetime(2024, 3, 1, hour, min))
-            resp = requests.post('http://localhost:8000/v1/weather/historic/upload', json=historic_weather)
+    for hour in range(12, 13):
+        for min in range(10):
+            weather = ow.weather_for_timestamp(datetime(2024, 3, 1, hour, min))
+            historic_weather = {
+                'data': weather,
+                'type': 'historic'
+            }
+            resp = requests.post('http://localhost:8000/v1/weather/submit', json=historic_weather)
             print(resp.text)
 
