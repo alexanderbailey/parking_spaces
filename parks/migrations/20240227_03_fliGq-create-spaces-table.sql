@@ -7,7 +7,7 @@
 CREATE TABLE spaces
 (
     id                              UUID                        DEFAULT UUID_GENERATE_V4()  NOT NULL,
-    car_park_id                     UUID                                                    NOT NULL,
+    carpark_id                     UUID                                                    NOT NULL,
     open                            BOOL                                                    NOT NULL,
     spaces                          INTEGER                                                 NOT NULL,
     unusable_spaces                 INTEGER                                                 NOT NULL,
@@ -21,4 +21,4 @@ CREATE TABLE spaces
 -- Make id the primary key
 ALTER TABLE spaces ADD PRIMARY KEY (id);
 -- Add a foreign key to the carpark table
-ALTER TABLE spaces ADD FOREIGN KEY (car_park_id) REFERENCES carpark (id) ON DELETE SET NULL;
+ALTER TABLE spaces ADD FOREIGN KEY (carpark_id) REFERENCES carpark (id) ON DELETE SET NULL;
