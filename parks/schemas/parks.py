@@ -25,7 +25,7 @@ class Weather(SQLModel, table=True):
     weather_location_id: UUID = Field(primary_key=True, foreign_key="weather_location.id")
     time: datetime = Field(primary_key=True)
     data: dict = Field(sa_column=Column(JSON))
-    historic: bool | None
+    historic: bool = False
 
 
 class CarPark(SQLModel, table=True):
