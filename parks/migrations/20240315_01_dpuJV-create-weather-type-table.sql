@@ -11,6 +11,14 @@ CREATE TABLE weather_type
     endpoint                        TEXT                                                    NOT NULL
 );
 
+-- ######################### ADD KEYS AND INDEXES #########################
+
+-- Keys and indexes for weather_type
+
+-- Make id the primary key
+ALTER TABLE weather_type ADD PRIMARY KEY (id);
+
+
 -- Add weather_type_id to weather table
 ALTER TABLE weather ADD COLUMN type_id UUID;
 
