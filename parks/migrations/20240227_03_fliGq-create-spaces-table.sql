@@ -7,7 +7,7 @@
 CREATE TABLE spaces
 (
     id                              UUID                        DEFAULT UUID_GENERATE_V4()  NOT NULL,
-    carpark_id                     UUID                                                    NOT NULL,
+    carpark_id                      UUID                                                    NOT NULL,
     open                            BOOL                                                    NOT NULL,
     spaces                          INTEGER                                                 NOT NULL,
     unusable_spaces                 INTEGER                                                 NOT NULL,
