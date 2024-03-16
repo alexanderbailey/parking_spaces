@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException
-from sqlmodel import Session
+from sqlmodel import Session, select
 from datetime import datetime
 
 from parks.schemas import (
-    Weather,
+    Weather, WeatherType
 )
 from parks.database import session
 import json
@@ -29,7 +29,7 @@ def weather_upload(
         # Convert the timestamp to a datetime object
         time = datetime.fromtimestamp(json_data['dt'])
         # Get the weather type id from the database
-        type_id = session.execute(f"SELECT id FROM weather_type WHERE name = 'current'").fetchone()[0]
+        type_id = session.exec(select(WeatherType.id).where(WeatherType.name == 'current')).one()
         # Create a new weather object
         weather = Weather(
             location_id=st_helier_uuid,
@@ -64,7 +64,7 @@ def weather_submit(
         # Convert the timestamp to a datetime object
         time = datetime.fromtimestamp(data['data'][0]['dt'])
         # Get the weather type id from the database
-        type_id = session.execute(f"SELECT id FROM weather_type WHERE name = '{type}'").fetchone()[0]
+        type_id = session.exec(select(WeatherType.id).where(WeatherType.name == type)).one()
         # Create a new weather object
         weather = Weather(
             location_id=st_helier_uuid,
