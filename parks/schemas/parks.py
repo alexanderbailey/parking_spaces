@@ -12,7 +12,7 @@ class ServerResponse(SQLModel, table=True):
 
 class WeatherLocation(SQLModel, table=True):
     __tablename__ = "weather_location"
-    id: Optional[UUID] = Field(default=None, primary_key=True)
+    id: UUID = Field(default=None, primary_key=True,  sa_column_kwargs={'server_default': 'uuid_generate_v4()'})
     name: str
     lat: float
     lon: float
@@ -22,14 +22,14 @@ class WeatherLocation(SQLModel, table=True):
 
 class WeatherType(SQLModel, table=True):
     __tablename__ = "weather_type"
-    id: Optional[UUID] = Field(default=None, primary_key=True)
+    id: UUID = Field(default=None, primary_key=True,  sa_column_kwargs={'server_default': 'uuid_generate_v4()'})
     name: str
     description: str
 
 
 class Weather(SQLModel, table=True):
     __tablename__ = "weather"
-    id: Optional[UUID] = Field(default=None, primary_key=True)
+    id: UUID = Field(default=None, primary_key=True,  sa_column_kwargs={'server_default': 'uuid_generate_v4()'})
     location_id: UUID = Field(foreign_key="weather_location.id")
     time: datetime
     data: dict = Field(sa_column=Column(JSON))
@@ -38,7 +38,7 @@ class Weather(SQLModel, table=True):
 
 class CarPark(SQLModel, table=True):
     __tablename__ = "carpark"
-    id: Optional[UUID] = Field(default=None, primary_key=True)
+    id: UUID = Field(default=None, primary_key=True,  sa_column_kwargs={'server_default': 'uuid_generate_v4()'})
     name: str
     code: str
     type: str
@@ -52,7 +52,7 @@ class SpacesRead(SQLModel):
 
 class Spaces(SpacesRead, table=True):
     __tablename__ = "spaces"
-    id: Optional[UUID] = Field(default=None, primary_key=True)
+    id: UUID = Field(default=None, primary_key=True,  sa_column_kwargs={'server_default': 'uuid_generate_v4()'})
     carpark_id: UUID = Field(foreign_key="carpark.id")
     open: bool
     unusable_spaces: int
