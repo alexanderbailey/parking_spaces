@@ -6,51 +6,11 @@
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
 
-<style>
-html {
-    height: 100%;
-    font-family: "Anta", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-}
-.title {
-    font-size: 80px;
-    color: #eeeeee;
-    text-align: center;;
-    vertical-align: middle;
-    width: 100%;
-}
-
-.title img {
-    padding-top: 24px;
-    height: 80px;
-}
-
-.subtitle {
-    color: #999999;
-    text-align: center;
-    width: 100%;
-}
-
-.subtitle span {
-    color: #eeeeee;
-}
-</style>
-<div class="title">
-    PARKS
-    <img src="icon.png" />
-</div>
-<div class="subtitle">
-    <span>P</span>redictive
-    <span>A</span>nalysis for
-    <span>R</span>eal-time
-    <span>K</span>nowledge of
-    <span>S</span>paces
-</div>
-
+<img src="icon.png" width="100"/>
 
 ---
 
+# PARKS
 PARKS is a tool for predicting parking spaces in St. Helier, Jersey.
 
 It's comprised of four components.
